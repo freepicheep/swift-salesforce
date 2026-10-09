@@ -1,0 +1,5 @@
+.build/
+.swiftpm/
+.DS_Store
+Examples/*/.build/
+Examples/*/.swiftpm/
