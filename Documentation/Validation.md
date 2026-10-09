@@ -14,7 +14,7 @@ The Swift Testing suite uses offline response fixtures and injectable transports
 
 Run `swift test` with Python 3 on PATH. A sandbox must allow loopback binding. No Salesforce credentials are used. Test code never creates simulators or installs tools.
 
-CI runs Swift 6.4 tests on macOS and Linux with Crypto 4.5.2 and 5.0.0. It compiles the Apple consumer and cross-compiles for the iOS device SDK. Separate consumer jobs resolve Hummingbird and Vapor with compatible dependencies; Vapor 4 currently resolves Crypto 4, while Hummingbird resolves Crypto 5. The library's declared range supports both. Keep each consumer's build directory separate: SwiftPM can otherwise reuse a stale graph when switching root packages.
+CI pins Swift 6.4.0, using the Swiftly-based `swift-actions/setup-swift@v3` action on macOS and the official `swift:6.4.0-noble` container on Linux. Each job logs `swift --version`. CI runs tests on macOS and Linux with Crypto 4.5.2 and 5.0.0. It compiles the Apple consumer and cross-compiles for the iOS device SDK. Separate consumer jobs resolve Hummingbird and Vapor with compatible dependencies; Vapor 4 currently resolves Crypto 4, while Hummingbird resolves Crypto 5. The library's declared range supports both. Keep each consumer's build directory separate: SwiftPM can otherwise reuse a stale graph when switching root packages.
 
 ## Local verification
 

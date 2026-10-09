@@ -8,9 +8,11 @@ jobs:
         crypto: ['4', '5']
     steps:
       - uses: actions/checkout@v4
-      - uses: swift-actions/setup-swift@v2
+      - uses: swift-actions/setup-swift@v3
         with:
-          swift-version: '6.4'
+          swift-version: '6.4.0'
+      - name: Report Swift version
+        run: swift --version
       - run: python3 Scripts/select-crypto.py ${{ matrix.crypto }}
       - run: swift test
       - name: Exercise delegate streaming fallback
@@ -20,12 +22,14 @@ jobs:
         run: swift build --package-path Examples/AppleApp --build-system native --scratch-path /tmp/salesforce-ios --triple arm64-apple-ios16.0 --sdk "$(xcrun --sdk iphoneos --show-sdk-path)"
   linux:
     runs-on: ubuntu-latest
-    container: swift:6.4
+    container: swift:6.4.0-noble
     strategy:
       matrix:
         crypto: ['4', '5']
     steps:
       - uses: actions/checkout@v4
+      - name: Report Swift version
+        run: swift --version
       - run: apt-get update && apt-get install -y python3
       - run: python3 Scripts/select-crypto.py ${{ matrix.crypto }}
       - run: swift test
@@ -33,15 +37,19 @@ jobs:
     runs-on: macos-26
     steps:
       - uses: actions/checkout@v4
-      - uses: swift-actions/setup-swift@v2
+      - uses: swift-actions/setup-swift@v3
         with:
-          swift-version: '6.4'
+          swift-version: '6.4.0'
+      - name: Report Swift version
+        run: swift --version
       - run: swift build --package-path Examples/HummingbirdServer
       - run: swift build --package-path Examples/VaporServer
   linux-consumers:
     runs-on: ubuntu-latest
-    container: swift:6.4
+    container: swift:6.4.0-noble
     steps:
       - uses: actions/checkout@v4
+      - name: Report Swift version
+        run: swift --version
       - run: swift build --package-path Examples/HummingbirdServer
       - run: swift build --package-path Examples/VaporServer
